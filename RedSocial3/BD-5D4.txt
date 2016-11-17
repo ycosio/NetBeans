@@ -1,0 +1,160 @@
+CREATE DATABASE sca;
+use sca;
+
+CREATE TABLE profesor (
+no_cuenta varchar (10) not null primary key, 
+nombre varchar(40) not null, 
+contrasena varchar(20) not null, 
+tipo varchar(15) not null,
+idacademia varchar(4) not null,
+email varchar (30) not null,
+progEducativo varchar(30) not null,
+materia varchar(50) not null
+);
+
+
+CREATE TABLE academias(
+idacademia varchar(4) not null primary key,
+nombre varchar(50) not null
+);
+
+
+
+CREATE TABLE planeaciones (
+idplaneacion int not null auto_increment primary key,
+nombre varchar (50) not null,
+idacademia varchar (4) not null,
+nocuenta varchar (10) not null,
+estado varchar(10) not null,
+progEducativo varchar(30) not null,
+materia varchar(50) not null
+);
+
+
+
+CREATE TABLE reunion (
+idreunion int auto_increment not null primary key,
+idlista int not null,
+idacademia varchar (4) not null,
+fecha datetime not null,
+lugar varchar (20) not null,
+semestre varchar (2) not null,
+titulo varchar (30) not null,
+idminuta int not null,
+progEducativo varchar(40) not null
+);
+
+
+CREATE TABLE minuta (
+idminuta int not null,
+acuerdos text not null,
+ordendeldia text not null,
+detalles text not null,
+fechaSiguiente datetime not null
+);
+
+
+CREATE TABLE lista (
+idlista int not null,
+nCuenta_convocado varchar(10) not null,
+asistencia varchar(2) not null
+);
+
+
+CREATE TABLE publicacion (
+idpublicacion int auto_increment not null primary key,
+no_cuenta varchar (10) not null,
+texto text not null,
+fecha datetime not null,
+archivo varchar (50) not null,
+idacademia varchar (4) not null,
+plan varchar(11) not null,
+progEducativo varchar(40) not null
+);
+
+
+
+CREATE TABLE comentarios(
+idcomentario varchar (20) not null primary key,
+idpublicacion varchar (20) not null,
+no_cuenta varchar (10) not null,
+texto varchar (50) not null,
+fecha datetime not null,
+archivo varchar (50) not null
+);
+
+
+CREATE TABLE chat(
+idchat varchar (20) not null primary key,
+id_receptor varchar (10) not null,
+id_emisor varchar (10) not null,
+texto varchar (50) not null,
+archivo varchar (50) not null
+);
+
+show tables;
+
+INSERT INTO profesor VALUES ('11112222', 'El Cordi', '123', 'Coordinador', '10', "secre@ucol.mx","Coordinador","cordi"), ('22223333', 'El sub', '123', 'Subdirector', '11', "secre@ucol.mx", "Subdirector","sub");
+INSERT INTO academias VALUES ("1", "Ciencias Basicas"), ("2", "Redes y Telecumunicaciones"), ("3", "Arquitectura de Computadoras"), ("4", "Software"), ("5", "Entorno Social"), ("6", "Introduccion a la Investigacion"), ("7", "Lengua Inglesa");
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO profesor VALUES ('20106666', 'Yair', '123', 'Presidente', '1', "ycosio@ucol.mx","Ingenieria de Software","Ofimatica"), ('20101234', 'Pedro', '123', 'Secretario' ,'1', "pterriquez@ucol.mx","Ingenieria de Software","Calculos"), ('20105678', 'Daniel', '123', 'Profesor', '1', "dvaldovinos0@ucol.mx","Ingenieria de Software","Probabilidad"), ('20109012', 'Damian', '123', 'Profesor', '1', "dbarajas@ucol.mx","Ingenieria de Software","Probailidad");
+INSERT INTO profesor VALUES ('20101111', 'Alexis', '123', 'Presidente', '2', "anavarro@ucol.mx","Ingenieria de Software","Redes de computadoras"), ('20102222', 'Ivan', '123', 'Secretario' ,'2', "imesina@ucol.mx","Ingenieria de Software","Redes de computadoras"), ('20103333', 'Fruto', '123', 'Profesor', '2', "ofruto@ucol.mx","Ingenieria en Telematica","Simulacion y calidad de servicio"), ('20104444', 'Victor', '123', 'Profesor', '2', "elcasado@ucol.mx","Ingenieria en Telematica","Simulacion y calidad de servicio");
+INSERT INTO profesor VALUES ('20105555', 'Francisco', '123', 'Presidente', '3', "fluna@ucol.mx","Ingeniera en Telematica","Robotica"), ('20109999', 'pihuamo', '123', 'Secretario' ,'3', "pihuamo@ucol.mx","Ingenieria en Telematica","Robotica"), ('20107777', 'Misael', '123', 'Profesor', '3', "mlomeli@ucol.mx","Ingenieria en Telematica","Sistemas embebidos"), ('20108888', 'Villalpando', '123', 'Profesor', '3', "jvillalvazo@ucol.mx","Ingenieria en Telematica","Sistemas embebidos");
+
+
+INSERT INTO lista VALUES ('1', '20105678', 'si'), ('1', '20109012', 'no'), ('2', '20105678', 'no'), ('2', '20109012', 'no'), ('3', '20105678', 'si'), ('3', '20109012', 'si');
+INSERT INTO reunion (idlista, idacademia, fecha, lugar, semestre, titulo, idminuta) VALUES ('1', '1', '2015-11-01 11:55:00',"Auditorio 2" ,"1","Titulo prueba 1", '1'),('2', '1', '2015-11-02 11:55:00',"Auditorio 3" ,"1",'Titulo prueba2', '2'), ('3', '2', '2015-11-03 11:55:00',"Auditorio 1" ,"1", 'Titulo prueba3','3');
+INSERT INTO minuta VALUES ('1', "acuerdos1", "ordendeldia1", "detalles1",'2015-12-02 11:55:00'),('2', "acuerdos2", "ordendeldia2", "detalles2",'2016-01-02 11:55:00'),('3', "acuerdos3", "ordendeldia3", "detalles3",'2016-02-02 11:55:00'); 
+
+INSERT INTO planeaciones (nombre,idacademia,nocuenta,estado,progEducativo,materia) VALUES ('Plan1.docx', '1', '20105678', 'Pendiente', 'Ingenieria de Software', 'Probabilidad'), ('Plan2.docx', '1', '20109012', 'Pendiente', 'Ingenieria de Software', 'Probabilidad'), ('Plan3.docx', '2', '20103333', 'Pendiente', 'Ingenieria en Telematica', 'Simulacion y calidad de servicio'),('Plan4.docx', '3', '20107777', 'Pendiente', 'Ingenieria en Telematica', 'Sistemas embebidos');
+
+
+//AGREGAR EMAIL DE PROFESOR AL Modelo ER
+//AGREGUE ATRIBUTO TITULO A LA REUNION
+//CAMBIAMOS A DATE TIME LA FECHA DE LA REUNION PARA AGREGAR HORA 				"yyyy-MM-dd HH:mm:ss"
+//AGREGAMOS UN ATRIBUTO FECHA CON DATETIME PARA PUBLICACION Y COMENTARIOS
+
+int prueba = 1;
+              String prueba1 = "" + prueba;
+                %> <P ALIGN=center> <%out.print(request.getParameter(prueba1));
+
+
+AGREGAR MIEMBRO
+conexion.ejecuta("INSERT INTO profesor VALUES ('"+ nCuenta +"','" +nombre+ "','"    +pass+ "','" + tipouser + "','1','"   +email+ "');");
+INSERT INTO minuta (cuerpo, acuerdos, ordendeldia, detalles, fechaSiguiente) VALUES ("cuerpo1", "acuerdos1", "ordendeldia1", "detalles1",'2015-12-02 11:55:00'),("cuerpo1", "acuerdos1", "ordendeldia1", "detalles1",'2015-12-02 11:55:00'), ("cuerpo1", "acuerdos1", "ordendeldia1", "detalles1",'2015-12-02 11:55:00');
+
+               Modificacion 3.0
+//Se agrego la tabla lista con sus atributos
+//Se elimino el atributo convocado de la tabla profesor
+//Cambie el atribito lista_asistencia de "reunion" por idlista y su tipo de dato tambien por (int)  
+//Se reparó una sentencia sQL mal escrita
+//Se agrego el atributo cuenta_secretario 
+//Cambio "archivodeminuta" por "idminuta" y tipo por int
+//se agrego el atributo "lugar", "semestre" tipo varchar
+//Se creo la tabla minuta con sus atributos    
+//Se eliminaron los atributos acuerdos para hacerlo uno solo: "acuerdos" text
+//Se agregaron los campos "ordendeldia" y "detalles" text
+//se cambio el nombre del atributo "fechaSigReunion" por "fechaSiguiente"
+
+            Modifacion 6.0    
+//Se elimino el atributo "cuerpo" de minuta
+//Se modificaron registros de minuta
+//modifique el registro del secretario para que su academia fuera "1"
+//Texto en publicacion a tipo text.
+//Se agrega idacademia a publicacion.
+//idautonumerica en publicacion
+
+
+	    Modificacion 7.0
+//Los atributos de cuenta presidente y secretario se eliminaron de "academias"
+//Los registros fueron modificados, ahora solo hay una cuenta coordinador y una subdirector
+//Se elimino el atributo "folio_plan" de la entidad "reunion" y se modificaron los registros de dicha entidad
+
+
+//Se agregaron los atributos "progEducativo" y "Materia" a la entidad porfesor
+//Se cambio el nombre de la tabla "planes_de_estudio" por "planeciones" y se modificaron todos sus atributos y ejemplos
+//Se agrego el atributo "plan" a la entidad "publicacion"
+//Se agrego el atributo "progEducativo" a la entidad "reunion" y a "publicacion"
